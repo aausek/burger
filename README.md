@@ -1,4 +1,4 @@
-### Eat-Da-Burger
+# Eat-Da-Burger
 
 * This application builds on MySQL, Node, Express, Handlebars & and ORM to permit the user to enter a burger name of choice and devour it.
 
