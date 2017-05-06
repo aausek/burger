@@ -1,23 +1,35 @@
-//Setting up MySQL Connection
 var mysql = require("mysql");
-var connection;
 
-if (process.env.JAWSDB_URL) {
-		connection = mysql.createConnection(process.env.JAWSDB_URL);
-} else {
-		connection = mysql.createConnection({
-		port: 3306,
-		host: "localhost",
-		user: "root",
-		password: "",
-		database: "burgers_db"
-	});
+// we placed the connections in this source object
+var source = {
+  // localhost
+  localhost: {
+    port: 3306,
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "burgers_db"
+  },
+
+  // jawsDB
+  jawsDB: {
+    port: 3306,
+    host: "gk90usy5ik2otcvi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    user: "yhgup3x8rs8vvzvx",
+    password: "n6s87py8ihhaa5gt",
+    database: "bh42uht8rzok5rmb"
+  }
 };
 
-//Make connection
-connection.connect();
+// we use source.[name of connection] to hook into mysql
+var connection = mysql.createConnection(source.jawsDB);
 
-connection.end();
+connection.connect(function(err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
+});
 
-//Export connection for ORM use
 module.exports = connection;
